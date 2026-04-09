@@ -856,6 +856,18 @@ class App(ctk.CTk):
     
     def _nav(self, key, cmd):
         self.active_page = key
+        self._highlight_sidebar(key)
+        cmd()
+    
+    def clear(self):
+        for w in self.winfo_children():
+            w.destroy()
+    
+    def clear_main_content(self):
+        for w in self.main.winfo_children():
+            w.destroy()
+    
+    def _highlight_sidebar(self, key):
         for k, btn in self.sidebar_buttons.items():
             if k == key:
                 btn.configure(
@@ -867,11 +879,6 @@ class App(ctk.CTk):
                     fg_color="transparent",
                     text_color="#CBD5E1",
                 )
-        cmd()
-    
-    def clear(self):
-        for w in self.winfo_children():
-            w.destroy()
     
     def _content_area(self):
         scroll = ctk.CTkScrollableFrame(
@@ -901,7 +908,7 @@ class App(ctk.CTk):
     # DASHBOARD
     # ================================================================
     def show_dashboard(self):
-        self.clear()
+        self.clear_main_content()
         self.active_page = "dashboard"
         self._highlight_sidebar("dashboard")
         area = self._content_area()
@@ -991,7 +998,7 @@ class App(ctk.CTk):
     # PACIENTES - LISTA
     # ================================================================
     def show_pacientes(self):
-        self.clear()
+        self.clear_main_content()
         self.active_page = "pacientes"
         self._highlight_sidebar("pacientes")
         area = self._content_area()
@@ -1109,7 +1116,7 @@ class App(ctk.CTk):
     # PACIENTES - FORMULARIO
     # ================================================================
     def show_form_paciente(self):
-        self.clear()
+        self.clear_main_content()
         self.active_page = "novo"
         self._highlight_sidebar("novo")
         area = self._content_area()
@@ -1177,7 +1184,7 @@ class App(ctk.CTk):
     # ATENDIMENTOS - LISTA
     # ================================================================
     def show_atendimentos(self):
-        self.clear()
+        self.clear_main_content()
         self.active_page = "atendimentos"
         self._highlight_sidebar("atendimentos")
         area = self._content_area()
@@ -1320,7 +1327,7 @@ class App(ctk.CTk):
     # ATENDIMENTOS - FORMULARIO
     # ================================================================
     def show_form_atendimento(self):
-        self.clear()
+        self.clear_main_content()
         self.active_page = "novo_atend"
         self._highlight_sidebar("novo_atend")
         area = self._content_area()
